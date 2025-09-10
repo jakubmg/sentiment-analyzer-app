@@ -69,37 +69,37 @@ if uploaded_file is not None:
     )
 
 
-review_df['sentiment'] = review_df[review_column].apply(classify_sentiment_openai)
-
-
-review_df['sentiment'] = review_df['sentiment'].str.title()
-sentiment_counts = review_df['sentiment'].value_counts()
-st.write(review_df)
-
-#Create 3 col to dsiplay the 3 metrics
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    #positive reviews and %
-    positive_count = sentiment_counts.get('Positive',0)
-    st.metric('Positive', positive_count, f'{positive_count/len(review_df)*100:.2f}%')
-
-with col2:
-    #positive reviews and %
-    neutral_count = sentiment_counts.get('Neutral',0)
-    st.metric('Neutral', neutral_count, f'{neutral_count/len(review_df)*100:.2f}%')
-
-with col3:
-    #positive reviews and %
-    negative_count = sentiment_counts.get('Negative',0)
-    st.metric('Negative', negative_count, f'{negative_count/len(review_df)*100:.2f}%')
-
-
-#Display in the chart
-fig = px.pie(
-    values = sentiment_counts.values,
-    names = sentiment_counts.index,
-    title = 'Sentiment Distirbution'
-)
-st.plotly_chart(fig)
+    review_df['sentiment'] = review_df[review_column].apply(classify_sentiment_openai)
+    
+    
+    review_df['sentiment'] = review_df['sentiment'].str.title()
+    sentiment_counts = review_df['sentiment'].value_counts()
+    st.write(review_df)
+    
+    #Create 3 col to dsiplay the 3 metrics
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        #positive reviews and %
+        positive_count = sentiment_counts.get('Positive',0)
+        st.metric('Positive', positive_count, f'{positive_count/len(review_df)*100:.2f}%')
+    
+    with col2:
+        #positive reviews and %
+        neutral_count = sentiment_counts.get('Neutral',0)
+        st.metric('Neutral', neutral_count, f'{neutral_count/len(review_df)*100:.2f}%')
+    
+    with col3:
+        #positive reviews and %
+        negative_count = sentiment_counts.get('Negative',0)
+        st.metric('Negative', negative_count, f'{negative_count/len(review_df)*100:.2f}%')
+    
+    
+    #Display in the chart
+    fig = px.pie(
+        values = sentiment_counts.values,
+        names = sentiment_counts.index,
+        title = 'Sentiment Distirbution'
+    )
+    st.plotly_chart(fig)
 
